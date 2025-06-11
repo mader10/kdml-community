@@ -2,13 +2,17 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+
+const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
-  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+  mode: isProd ? 'production' : 'development',
   entry: './src/js/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[contenthash].js',
+    filename: isProd ? '[name].[contenthash].js' : '[name].js',
     clean: true,
   },
   module: {
@@ -17,16 +21,13 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env']
-          }
+          loader: 'babel-loader'
         }
       },
       {
         test: /\.css$/,
         use: [
-          'style-loader',
+          isProd ? MiniCssExtractPlugin.loader : 'style-loader',
           'css-loader',
           'postcss-loader',
         ],
@@ -34,31 +35,67 @@ module.exports = {
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
+        generator: {
+          filename: 'images/[name].[hash][ext]'
+        }
       },
-    ]
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: 'index.html',
+      minify: isProd ? {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true,
+      } : false,
     }),
-    ...(process.env.NODE_ENV === 'production' ? [
+    ...(isProd ? [
+      new MiniCssExtractPlugin({
+        filename: '[name].[contenthash].css',
+      }),
       new WorkboxPlugin.GenerateSW({
         clientsClaim: true,
         skipWaiting: true,
-        maximumFileSizeToCacheInBytes: 5000000,
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
       }),
       new CopyPlugin({
         patterns: [
           { from: 'src/manifest.json', to: 'manifest.json' },
-          { from: 'src/assets', to: 'assets', noErrorOnMissing: true },
+          { from: 'src/icons', to: 'icons', noErrorOnMissing: true },
         ],
       }),
     ] : []),
   ],
+  optimization: {
+    minimize: isProd,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          compress: {
+            drop_console: true,
+          },
+        },
+      }),
+    ],
+    splitChunks: {
+      chunks: 'all',
+      name: false,
+    },
+  },
   devServer: {
     static: './dist',
     hot: true,
-    port: 3001
-  }
+    port: 3001,
+    historyApiFallback: true,
+  },
+  devtool: isProd ? 'source-map' : 'eval-source-map',
 }; 
