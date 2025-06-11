@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KDML Community - Admin</title>
+    <meta name="description" content="KDML Community Admin Panel">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manjari&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div id="adminPanel" class="min-h-screen p-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h1 class="text-2xl font-bold mb-6">Admin Panel</h1>
+                
+                <!-- Member Upload Section -->
+                <div class="space-y-4">
+                    <h2 class="text-xl font-semibold">Upload Members</h2>
+                    
+                    <!-- Excel Template Download -->
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-medium mb-2">Excel Template</h3>
+                        <p class="text-sm text-gray-600 mb-2">Download the template and fill in the member details:</p>
+                        <button id="downloadTemplate" class="btn btn-secondary">
+                            Download Template
+                        </button>
+                    </div>
+
+                    <!-- File Upload -->
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-medium mb-2">Upload Members Excel File</h3>
+                        <div class="space-y-2">
+                            <input type="file" 
+                                   id="memberFile" 
+                                   accept=".xlsx,.xls"
+                                   class="block w-full text-sm text-gray-500
+                                          file:mr-4 file:py-2 file:px-4
+                                          file:rounded-full file:border-0
+                                          file:text-sm file:font-semibold
+                                          file:bg-primary file:text-white
+                                          hover:file:bg-primary-dark">
+                            <button id="uploadMembers" class="btn btn-primary mt-2">
+                                Upload Members
+                            </button>
+                        </div>
+                        
+                        <!-- Upload Status -->
+                        <div id="uploadStatus" class="mt-4 hidden">
+                            <div class="flex items-center">
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div id="uploadProgress" class="bg-primary h-2.5 rounded-full" style="width: 0%"></div>
+                                </div>
+                                <span id="uploadPercent" class="ml-2 text-sm text-gray-600">0%</span>
+                            </div>
+                            <p id="uploadMessage" class="text-sm text-gray-600 mt-2"></p>
+                        </div>
+                    </div>
+
+                    <!-- Upload Results -->
+                    <div id="uploadResults" class="bg-gray-50 p-4 rounded-lg hidden">
+                        <h3 class="font-medium mb-2">Upload Results</h3>
+                        <div class="space-y-2 text-sm">
+                            <p>Total Records: <span id="totalRecords">0</span></p>
+                            <p>Successfully Uploaded: <span id="successCount">0</span></p>
+                            <p>Failed Records: <span id="failedCount">0</span></p>
+                        </div>
+                        <div id="errorList" class="mt-4 text-sm text-red-600"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

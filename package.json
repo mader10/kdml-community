@@ -12,7 +12,8 @@
     "core-js": "^3.43.0",
     "date-fns": "^2.30.0",
     "firebase": "^10.7.0",
-    "hijri-date": "^0.2.2"
+    "hijri-date": "^0.2.2",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@babel/core": "^7.27.4",

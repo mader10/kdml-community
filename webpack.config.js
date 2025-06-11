@@ -10,7 +10,10 @@ const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
   mode: isProd ? 'production' : 'development',
-  entry: './src/js/index.js',
+  entry: {
+    main: './src/js/index.js',
+    admin: './src/js/admin.js'
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: isProd ? '[name].[contenthash].js' : '[name].js',
@@ -46,6 +49,24 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: 'index.html',
+      chunks: ['main'],
+      minify: isProd ? {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true,
+      } : false,
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/admin.html',
+      filename: 'admin.html',
+      chunks: ['admin'],
       minify: isProd ? {
         removeComments: true,
         collapseWhitespace: true,

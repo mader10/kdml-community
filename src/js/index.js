@@ -63,14 +63,52 @@ async function showApp(user) {
 async function handleLogin(e) {
   e.preventDefault();
   const phone = document.getElementById('phone').value;
+  const loginButton = document.querySelector('#loginForm button[type="submit"]');
+  const originalButtonText = loginButton.textContent;
 
   try {
+    loginButton.disabled = true;
+    loginButton.textContent = 'Sending OTP...';
+    
     const confirmationResult = await authService.loginWithPhone(phone);
-    // Handle OTP verification (you'll need to implement UI for this)
-    console.log('OTP sent', confirmationResult);
+    
+    // Show OTP input
+    const otpHtml = `
+      <div class="mt-4">
+        <label for="otp" class="block text-sm font-medium text-gray-700">Enter OTP</label>
+        <input type="text" id="otp" class="form-input mt-1" required maxlength="6" pattern="[0-9]*">
+        <button type="button" id="verifyOtp" class="btn btn-primary w-full mt-2">
+          Verify OTP
+        </button>
+      </div>
+    `;
+    
+    loginButton.insertAdjacentHTML('afterend', otpHtml);
+    loginButton.classList.add('hidden');
+    
+    // Handle OTP verification
+    document.getElementById('verifyOtp').addEventListener('click', async () => {
+      const otp = document.getElementById('otp').value;
+      const verifyButton = document.getElementById('verifyOtp');
+      
+      try {
+        verifyButton.disabled = true;
+        verifyButton.textContent = 'Verifying...';
+        
+        const userDoc = await authService.verifyOTP(confirmationResult, otp);
+        console.log('Login successful:', userDoc);
+      } catch (error) {
+        console.error('OTP verification error:', error);
+        alert('Invalid OTP. Please try again.');
+        verifyButton.disabled = false;
+        verifyButton.textContent = 'Verify OTP';
+      }
+    });
   } catch (error) {
     console.error('Login error:', error);
     alert('Login failed. Please try again.');
+    loginButton.disabled = false;
+    loginButton.textContent = originalButtonText;
   }
 }
 
