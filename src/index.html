@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KDML Community App</title>
+    <meta name="description" content="Community management app for SYS and SSF organizations">
+    <!-- PWA tags will be added in production -->
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manjari&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <!-- Login Screen -->
+    <div id="loginScreen" class="min-h-screen flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+            <h1 class="text-2xl font-bold text-center mb-6">KDML Community</h1>
+            <form id="loginForm" class="space-y-4">
+                <div>
+                    <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" class="form-input" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-full">
+                    Login
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main App (hidden by default) -->
+    <div id="app" class="hidden min-h-screen">
+        <!-- Top Navigation -->
+        <nav class="bg-primary text-white shadow-lg">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <h1 class="text-xl font-bold">KDML</h1>
+                <button id="profileBtn" class="w-10 h-10 rounded-full bg-white text-primary flex items-center justify-center font-bold">
+                    MH
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="container mx-auto px-4 py-6">
+            <!-- Quick Actions -->
+            <div class="grid grid-cols-3 gap-4 mb-6">
+                <button class="bg-white p-4 rounded-lg shadow-md text-center hover:shadow-lg transition-shadow">
+                    <span class="block text-2xl mb-1">📅</span>
+                    <span class="text-sm">Meetings</span>
+                </button>
+                <button class="bg-white p-4 rounded-lg shadow-md text-center hover:shadow-lg transition-shadow">
+                    <span class="block text-2xl mb-1">💰</span>
+                    <span class="text-sm">Funds</span>
+                </button>
+                <button class="bg-white p-4 rounded-lg shadow-md text-center hover:shadow-lg transition-shadow">
+                    <span class="block text-2xl mb-1">🩸</span>
+                    <span class="text-sm">Blood</span>
+                </button>
+            </div>
+
+            <!-- Upcoming Meetings -->
+            <section class="mb-6">
+                <h2 class="text-lg font-bold mb-3">Upcoming Meetings</h2>
+                <div id="meetingsList" class="space-y-3">
+                    <!-- Meetings will be populated here -->
+                </div>
+            </section>
+
+            <!-- Active Funds -->
+            <section class="mb-6">
+                <h2 class="text-lg font-bold mb-3">Active Funds</h2>
+                <div id="fundsList" class="space-y-3">
+                    <!-- Funds will be populated here -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200">
+            <div class="grid grid-cols-5 gap-1">
+                <button class="p-2 text-center active">
+                    <span class="block text-xl">🏠</span>
+                    <span class="text-xs">Home</span>
+                </button>
+                <button class="p-2 text-center">
+                    <span class="block text-xl">📅</span>
+                    <span class="text-xs">Meetings</span>
+                </button>
+                <button class="p-2 text-center">
+                    <span class="block text-xl">💰</span>
+                    <span class="text-xs">Funds</span>
+                </button>
+                <button class="p-2 text-center">
+                    <span class="block text-xl">👥</span>
+                    <span class="text-xs">Committee</span>
+                </button>
+                <button class="p-2 text-center">
+                    <span class="block text-xl">👤</span>
+                    <span class="text-xs">Profile</span>
+                </button>
+            </div>
+        </nav>
+    </div>
+</body>
+</html> 

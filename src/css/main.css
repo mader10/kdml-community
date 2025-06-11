@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles */
+:root {
+  --primary-color: #9C1D35;
+  --primary-light: #B33D52;
+  --primary-dark: #7A1729;
+}
+
+.bg-primary {
+  background-color: var(--primary-color);
+}
+
+.text-primary {
+  color: var(--primary-color);
+}
+
+.border-primary {
+  border-color: var(--primary-color);
+}
+
+/* Form styles */
+.form-input {
+  @apply mt-1 block w-full rounded-md border-gray-300 shadow-sm;
+}
+
+.form-input:focus {
+  @apply ring-2 ring-primary ring-opacity-50 border-primary;
+}
+
+/* Button styles */
+.btn {
+  @apply px-4 py-2 rounded-md font-medium transition-colors;
+}
+
+.btn-primary {
+  @apply bg-primary text-white hover:bg-primary-dark;
+} 

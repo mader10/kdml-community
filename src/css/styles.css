@@ -1,0 +1,170 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #9C1D35;
+  --primary-light: #B33D52;
+  --primary-dark: #7A1729;
+}
+
+/* Custom utility classes */
+.bg-primary {
+  background-color: var(--primary-color);
+}
+
+.text-primary {
+  color: var(--primary-color);
+}
+
+.border-primary {
+  border-color: var(--primary-color);
+}
+
+/* Navigation active state */
+nav button.active {
+  color: var(--primary-color);
+}
+
+nav button.active span {
+  color: var(--primary-color);
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: transform 0.2s ease-in-out;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+}
+
+/* Progress bar animation */
+.progress-bar {
+  transition: width 0.3s ease-in-out;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}
+
+/* Font settings */
+.font-arabic {
+  font-family: 'Noto Naskh Arabic', serif;
+}
+
+.font-malayalam {
+  font-family: 'Manjari', sans-serif;
+}
+
+/* Loading spinner */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Form styles */
+.form-input {
+  @apply mt-1 block w-full rounded-md border-gray-300 shadow-sm;
+}
+
+.form-input:focus {
+  @apply ring-2 ring-primary ring-opacity-50 border-primary;
+}
+
+.btn {
+  @apply px-4 py-2 rounded-md font-medium transition-colors;
+}
+
+.btn-primary {
+  @apply bg-primary text-white hover:bg-primary-dark;
+}
+
+.btn-outline {
+  @apply border-2 border-primary text-primary hover:bg-primary hover:text-white;
+}
+
+/* Toast notifications */
+.toast {
+  @apply fixed bottom-4 right-4 px-4 py-2 rounded-lg shadow-lg;
+  animation: slideIn 0.3s ease-out;
+}
+
+.toast-success {
+  @apply bg-green-500 text-white;
+}
+
+.toast-error {
+  @apply bg-red-500 text-white;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .container {
+    @apply px-4;
+  }
+  
+  nav button span:last-child {
+    @apply text-[10px];
+  }
+}
+
+/* Admin mode indicator */
+.admin-mode {
+  @apply fixed top-4 right-4 px-2 py-1 rounded text-xs font-bold bg-yellow-400 text-black;
+}
+
+/* Blood group badges */
+.blood-badge {
+  @apply inline-flex items-center justify-center w-8 h-8 rounded-full text-white font-bold text-sm;
+}
+
+.blood-badge-a {
+  @apply bg-red-500;
+}
+
+.blood-badge-b {
+  @apply bg-blue-500;
+}
+
+.blood-badge-ab {
+  @apply bg-purple-500;
+}
+
+.blood-badge-o {
+  @apply bg-green-500;
+} 
